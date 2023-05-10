@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+
+{% include '_menu.html' %}
+
+<div class="container mt-1">
+  <div><a  href="/" style="font-size: 1.3em;">Regresar</a></div>
+
+  <h1 class="text-center">Detalles del Item de la Lista de Deseos</h1>
+
+  <hr>
+
+  <div class="row mt-2 ">
+
+    <div class="col-8 mt-2 mb-2 " style="margin:0 auto;">
+      <div><h3 class="text-center text-success">Nombre del Item : <span class="text-primary">{{item.nombre}}</span></h3></div>
+    </div>
+
+    <hr>
+
+    <div class="col-8 mt-2 mb-2" style="margin:0 auto;">
+      <h3 class="text-center text-success"><div>Usuarios que agregaron este item a su lista de deseos :</div></h3>
+      <hr>
+      <ul class="lista_detalle_viaje">
+          <li>{{item.nombre_creador}}  --  El usuario que lo agrego (Creador)</li>
+          {%if item.deseos|length > 0%}
+             {%for deseo in item.deseos%}
+                <li>{{deseo.nombre_usuario}}</li>
+             {%endfor%}
+          {%endif%}
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

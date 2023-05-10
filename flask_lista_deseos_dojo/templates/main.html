@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Dashboard Principal{% endblock %}
+
+{% block contenido %}
+
+{% include '_menu.html' %}
+
+<div class="container mt-5">
+    <h1>Bienvenidos al Dashboard del Sistema : {{sistema}} </h1>
+    <hr>
+    <div style="text-align:right; padding:0; margin:0;"><a href="/lista_deseos/crearitem" style="padding:0; margin:0;">Agregar Item</a></div>
+    <div class="row g-2 mt-4 " style="min-height:250px;">
+      <div class="col-md-12 col-lg-12 col-md mb-2 border">
+        <div class="p-3 mb-2 recetas" style="min-height: 200px;">
+          <h2 style="color:rebeccapurple;">Tu Lista de Deseos : </h2>
+          <hr>
+            <table class="table table-resposive table-striped">
+              <thead class="bg-secondary text-light">
+                <tr>
+                  <th>Item</th>
+                  <th>Agregdo por</th>
+                  <th>Fecha cuando fue Agregado</th>
+                  <th>Opcion</th>
+                </tr>
+              </thead>
+              <tbody>
+                {%for mi_item in mis_items%}
+                <tr>
+                  <td><a href="/lista_deseos/detalle_item/{{mi_item.id}}/{{mi_item.creador}}">{{mi_item.nombre}}</a></td>
+                  <td>{{mi_item.nombre_creador}}</td>
+                  <td>{{mi_item.created_at}}</td>
+                      {%if mi_item.creador != session['idusuario']%}
+                          <td><a href="/lista_deseos/quitar_item_deseos/{{mi_item.id}}" onclick="return confirm('Desea remover el item de su lista de deseos?')">Quitar de mis deseos</a></td>
+                      {%else%}
+                          <td><a href="/lista_deseos/eliminaritem/{{mi_item.id}}" onclick="return confirm('Desea eliminar el item?')">Eliminar</a></td>
+                      {%endif%}
+                </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="row g-2 mt-4 " style="min-height:250px;">
+      <div class="col-md-12 col-lg-12 col-md mb-2 border">
+        <div class="p-3 mb-2 recetas" style="min-height: 200px;">
+          <h2 style="color:rebeccapurple;">Lista de Deseos de otros usuarios : </h2>
+          <hr>
+            <table class="table table-resposive table-striped">
+              <thead class="bg-secondary text-light">
+                <tr>
+                  <th>Item</th>
+                  <th>Agregdo por</th>
+                  <th>Fecha cuando fue Agregado</th>
+                  <th>Opcion</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  {%for otro_item in otros_items%}
+                  <tr>
+                    <td>{{otro_item.nombre}}</td>
+                    <td>{{otro_item.nombre_creador}}</td>
+                    <td>{{otro_item.created_at}}</td>
+                    <td><a href="/lista_deseos/agregar_item_deseos/{{otro_item.id}}">Agregar a mis deseos</a></td>
+                  </tr>
+                  {%endfor%}
+                </tr>
+              </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+{% endblock %}

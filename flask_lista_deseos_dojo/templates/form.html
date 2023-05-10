@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block titulo %}Insertar Item{% endblock %}
+
+{% block contenido %}
+
+{% include '_menu.html' %}
+
+<div class="container mt-4">
+    <h1 class="text-center">{{operacion}}</h1>
+    <br>
+    <hr>
+  <form action="/lista_deseos/procesar_item" method="post">
+    <div class="row g-2 mt-3">
+      <div class="col-md-12 col-lg-8 mt-3 mb-3 pb-3" style="margin:0 auto;">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre</label>
+          <input value="{{datos_item.nombre}}" type="text" class="form-control" required name="nombre">
+        </div>
+
+        <br>
+
+        <div>
+          <input type="hidden" id="id_item" name="id_item" value="{{datos_item.id}}">
+          <input type="hidden" id="operacion" name="operacion" value="{{operacion}}">
+          <button type="submit" class="btn btn-primary">Grabar</button>
+          <a href="/" class="btn btn-danger">Cancelar</a>
+        </div>
+
+      </div>
+    </div>
+
+
+</form>
+
+
+</div>
+
+{% endblock %}
